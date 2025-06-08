@@ -110,12 +110,12 @@ These got fed to CLIP’s text encoder and averaged to form a single prompt embe
 - Used BCEWithLogitsLoss for multilabel classification, with standard training tricks like dropout, batch norm, and learning rate scheduling.
 - Evaluated with standard multilabel metrics: exact match ratio, Hamming loss, macro and micro precision/recall/F1.
 
-The results showed that combining image and text embeddings helped, but not by a magic jump—more like a solid nudge. The weighted sum approach gave the model some flexibility to decide what mattered more per feature dimension: this resulted in an overall higher **precision**. The effect of the two model flavors was more pronounced with smaller sample sizes.  
+The results showed that combining image and text embeddings helped, but not by a magic jump,more like a solid nudge. The weighted sum approach gave the model some flexibility to decide what mattered more per feature dimension: this resulted in an overall higher **precision**. The effect of the two model flavors was more pronounced with smaller sample sizes.  
 
 ## Final Thoughts
 
 This project was less about reinventing the wheel and more about creatively exploiting what a powerful pretrained model like CLIP can offer for medical image classification.
 
-Squeezing features out of a black box model, assembling clever prompt ensembles, and combining modalities in simple but effective ways—that’s the essence here. The pathologies were tricky, the data imperfect, and yet the models managed to pick up signals. Not bad for a side hustle with some neural networks.
+Squeezing features out of a black box model, assembling clever prompt ensembles, and combining modalities in simple but effective ways, that’s the essence here. The pathologies were tricky, the data imperfect, and yet the models managed to pick up signals. Not bad for a side hustle with some neural networks.
 
 In short: I didn’t cure disease, but I learned how to make CLIP sweat for its keep.  
