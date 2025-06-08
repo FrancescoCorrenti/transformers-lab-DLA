@@ -75,11 +75,10 @@ This approach tried to be smarter about combining image and text features by int
 - Introduced two learnable vectors of weights: one for image features, one for prompt features.
 - Computed a weighted sum:
   
-  \[
-  \text{combined\_features} = w_{img} \odot \text{image\_features} + w_{prompt} \odot \text{projected\_prompt\_features}
-  \]
+  `combined_features = w_img ⊙ image_features + w_prompt ⊙ projected_prompt_features`
 
-  where \(\odot\) is element-wise multiplication.
+
+  where ⊙ is element-wise multiplication.
 
 - Passed combined features through an MLP similar in size to the baseline’s for classification.
 
