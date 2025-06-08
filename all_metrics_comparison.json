@@ -1,0 +1,22 @@
+{
+    "two_branch_mlp_concat": {
+        "hamming_loss": 0.11610211094747178,
+        "exact_match_ratio": 0.12027491408934708,
+        "macro_precision": 0.4824021260046668,
+        "macro_recall": 0.16453382297588398,
+        "macro_f1": 0.23294439925768876,
+        "micro_precision": 0.7132352941176471,
+        "micro_recall": 0.18267419962335216,
+        "micro_f1": 0.2908545727136432
+    },
+    "weighted_sum_mlp": {
+        "hamming_loss": 0.11561119293078057,
+        "exact_match_ratio": 0.13402061855670103,
+        "macro_precision": 0.5869827285398569,
+        "macro_recall": 0.245302360202276,
+        "macro_f1": 0.3219387430104638,
+        "micro_precision": 0.6363636363636364,
+        "micro_recall": 0.263653483992467,
+        "micro_f1": 0.37283621837549935
+    }
+}

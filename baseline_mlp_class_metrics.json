@@ -1,0 +1,100 @@
+[
+    {
+        "class": "Atelectasis",
+        "precision": 0.7692307692307693,
+        "recall": 0.31746031746031744,
+        "f1": 0.449438202247191,
+        "support": 63
+    },
+    {
+        "class": "Cardiomegaly",
+        "precision": 0.7142857142857143,
+        "recall": 0.47619047619047616,
+        "f1": 0.5714285714285714,
+        "support": 21
+    },
+    {
+        "class": "Consolidation",
+        "precision": 0.25,
+        "recall": 0.03225806451612903,
+        "f1": 0.05714285714285714,
+        "support": 31
+    },
+    {
+        "class": "Edema",
+        "precision": 0.7272727272727273,
+        "recall": 0.3076923076923077,
+        "f1": 0.43243243243243246,
+        "support": 26
+    },
+    {
+        "class": "Effusion",
+        "precision": 0.6842105263157895,
+        "recall": 0.3611111111111111,
+        "f1": 0.4727272727272727,
+        "support": 72
+    },
+    {
+        "class": "Emphysema",
+        "precision": 0.6875,
+        "recall": 0.3142857142857143,
+        "f1": 0.43137254901960786,
+        "support": 35
+    },
+    {
+        "class": "Fibrosis",
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 28
+    },
+    {
+        "class": "Hernia",
+        "precision": 1.0,
+        "recall": 0.45,
+        "f1": 0.6206896551724138,
+        "support": 20
+    },
+    {
+        "class": "Infiltration",
+        "precision": 0.5,
+        "recall": 0.3,
+        "f1": 0.375,
+        "support": 70
+    },
+    {
+        "class": "Mass",
+        "precision": 0.5,
+        "recall": 0.11764705882352941,
+        "f1": 0.19047619047619047,
+        "support": 34
+    },
+    {
+        "class": "Nodule",
+        "precision": 0.5,
+        "recall": 0.05263157894736842,
+        "f1": 0.09523809523809523,
+        "support": 38
+    },
+    {
+        "class": "Pleural_Thickening",
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 35
+    },
+    {
+        "class": "Pneumonia",
+        "precision": 1.0,
+        "recall": 0.05,
+        "f1": 0.09523809523809523,
+        "support": 20
+    },
+    {
+        "class": "Pneumothorax",
+        "precision": 0.5,
+        "recall": 0.3157894736842105,
+        "f1": 0.3870967741935484,
+        "support": 38
+    }
+]
