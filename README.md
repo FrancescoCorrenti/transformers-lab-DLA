@@ -99,6 +99,7 @@ Concatenating image and text embeddings allowed the model to learn joint pattern
 
 **Example Prediction:** Real Label : "Atelectasis | Consolidation"
 ![Two-Branch MLP Prediction](prediction_viz_two_branch_mlp.png)
+
 ---
 
 ##### 3. Weighted Sum MLP
