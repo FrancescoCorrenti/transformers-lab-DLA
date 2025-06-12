@@ -8,33 +8,27 @@ Welcome! This README walks through Laboratory #3 for Deep Learning Applications,
 
 I loaded and explored the Cornell Rotten Tomatoes movie review dataset, focusing on understanding its splits (train, validation, test). Using HuggingFace's datasets library, I confirmed the balanced nature of the dataset, which contains equal positive and negative reviews.
 
----
 
 ## Exercise 1.2: 
 
 I loaded the lightweight Distilbert model and corresponding tokenizer, examining their outputs on sample texts. The tokenizer provided inputs in the required format (input IDs and attention masks), and Distilbert's output included hidden states, notably the [CLS] token at the start of each sequence.
 
----
 
 ## Exercise 1.3: 
 I extracted features from Distilbert's [CLS] token, effectively turning the model into a feature extractor. These features were then used to train an SVM classifier. Using GridSearchCV, I found optimal hyperparameters (C, kernel, gamma) that yielded a solid baseline accuracy on validation data. 
 
----
 
 ## Exercise 2.1:
 The dataset was tokenized efficiently using the map method from HuggingFace's Dataset class. Tokenization provided input IDs and attention masks, preparing the dataset effectively for training.
 
----
 
 ## Exercise 2.2:
 I initialized Distilbert specifically for sequence classification by attaching a randomly-initialized classification head, preparing the model directly for sentiment analysis tasks.
 
----
 
 ## Exercise 2.3: 
 Using HuggingFace's Trainer, I fine-tuned the Distilbert model. A DataCollatorWithPadding ensured efficient batch handling. The training setup included early stopping and careful hyperparameter selection (epochs, batch size, learning rate) managed via TrainingArguments. Metrics computed included accuracy, precision, recall, and F1 score, logged through WandB. 
 
----
 
 ## Exercise 3.3:
 ### Medical Image Dataset Analysis: Squeezing Every Drop Out of CLIP Features
@@ -129,6 +123,8 @@ This approach tried to be smarter about combining image and text features by int
 - The weights \(w_{img}\) and \(w_{prompt}\) were learned end-to-end during training.
 - This setup still used the same prompt mega-vector ensemble as before.
 - The prompt projection aligned textual features into the same space as image features for meaningful element-wise combination.
+
+---
 
 #### How I Made the Prompts (Prompt Engineering)
 
