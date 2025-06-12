@@ -1,18 +1,54 @@
-# Medical Image Dataset Analysis: Squeezing Every Drop Out of CLIP Features
+# Deep Learning Applications Laboratory #3 - README
 
-Alright, here’s the story of my latest project where I basically tried to wring out every bit of useful information from CLIP features applied to chest X-rays.  
-**IMPORTANT:** In the true spirit of a lab about transformers, most of the hard work was done by coding agents like Gemini 2.5 Pro and Claude 4.0 Sonnet. My role was more of a conductor, orchestrating the symphony of models and prompts rather than writing every line of code myself. I state this upfront because some style choices and code snippets seem influenced by the coding agents' preferences, which may not align with my usual coding style.
+## Overview
 
-## Dataset and Setup
+Welcome! This README walks through Laboratory #3 for Deep Learning Applications, where I explored the transformer architecture and the Hugging Face ecosystem. 
+
+## Exercise 1.1:
+
+I loaded and explored the Cornell Rotten Tomatoes movie review dataset, focusing on understanding its splits (train, validation, test). Using HuggingFace's datasets library, I confirmed the balanced nature of the dataset, which contains equal positive and negative reviews.
+
+---
+
+## Exercise 1.2: 
+
+I loaded the lightweight Distilbert model and corresponding tokenizer, examining their outputs on sample texts. The tokenizer provided inputs in the required format (input IDs and attention masks), and Distilbert's output included hidden states, notably the [CLS] token at the start of each sequence.
+
+---
+
+## Exercise 1.3: 
+I extracted features from Distilbert's [CLS] token, effectively turning the model into a feature extractor. These features were then used to train an SVM classifier. Using GridSearchCV, I found optimal hyperparameters (C, kernel, gamma) that yielded a solid baseline accuracy on validation data. 
+
+---
+
+## Exercise 2.1:
+The dataset was tokenized efficiently using the map method from HuggingFace's Dataset class. Tokenization provided input IDs and attention masks, preparing the dataset effectively for training.
+
+---
+
+## Exercise 2.2:
+I initialized Distilbert specifically for sequence classification by attaching a randomly-initialized classification head, preparing the model directly for sentiment analysis tasks.
+
+---
+
+## Exercise 2.3: 
+Using HuggingFace's Trainer, I fine-tuned the Distilbert model. A DataCollatorWithPadding ensured efficient batch handling. The training setup included early stopping and careful hyperparameter selection (epochs, batch size, learning rate) managed via TrainingArguments. Metrics computed included accuracy, precision, recall, and F1 score, logged through WandB. 
+
+---
+
+## Exercise 3.3:
+### Medical Image Dataset Analysis: Squeezing Every Drop Out of CLIP Features
+
+#### Dataset and Setup
 
 I worked with a publicly available chest X-ray dataset (NIH Chest X-ray Dataset), which came with images and labels for multiple pathologies. After checking which images I actually had downloaded (I was **NOT** downloading 45 GB of chest X-rays), I filtered the dataset accordingly.
 
-## The Main Idea: Milk CLIP for All It's Worth
+#### The Main Idea: Milk CLIP for All It's Worth
 
 CLIP, specifically Stanford’s XraySigLIP model, was my feature extractor of choice.  
 I explored three flavors of models on top of CLIP's embeddings:
 
-### 1. Baseline MLP
+##### 1. Baseline MLP
 
 The baseline was simple but necessary: it took the image features extracted by CLIP’s vision encoder and fed them into a Multi-Layer Perceptron (MLP) for multilabel classification.
 
@@ -36,7 +72,7 @@ This model acted as a sanity check: can CLIP’s raw image features alone classi
 
 ---
 
-### 2. Two-Branch MLP with Concatenation Fusion
+##### 2. Two-Branch MLP with Concatenation Fusion
 
 Here’s where things got interesting. Instead of relying solely on image features, I also exploited CLIP’s powerful text encoder. The idea: each pathology had a set of descriptive prompts (like “signs of pneumothorax”) which got encoded into vectors.
 
@@ -63,8 +99,9 @@ Concatenating image and text embeddings allowed the model to learn joint pattern
 - The prompt mega-vector was fixed during training (not learned) and acted as a strong prior.
 - The model had separate parameter sets for image and prompt branches, enabling specialized transformations.
 - The final classifier was a simple MLP that took the concatenated features and output pathology probabilities.
+---
 
-### 3. Weighted Sum MLP
+##### 3. Weighted Sum MLP
 
 This approach tried to be smarter about combining image and text features by introducing learnable weights that decide how much emphasis to put on each modality’s features.
 
@@ -94,7 +131,7 @@ This approach tried to be smarter about combining image and text features by int
 - This setup still used the same prompt mega-vector ensemble as before.
 - The prompt projection aligned textual features into the same space as image features for meaningful element-wise combination.
 
-## How I Made the Prompts (Prompt Engineering)
+#### How I Made the Prompts (Prompt Engineering)
 
 For each pathology, I crafted multiple positive prompts using templates like:
 
@@ -105,7 +142,7 @@ For each pathology, I crafted multiple positive prompts using templates like:
 
 These got fed to CLIP’s text encoder and averaged to form a single prompt embedding per pathology.
 
-## Training and Evaluation Highlights
+#### Training and Evaluation Highlights
 
 - Trained each model on balanced subsets of the dataset to avoid bias towards common conditions.
 - Used BCEWithLogitsLoss for multilabel classification, with standard training tricks like dropout, batch norm, and learning rate scheduling.
@@ -113,7 +150,7 @@ These got fed to CLIP’s text encoder and averaged to form a single prompt embe
 
 The results showed that combining image and text embeddings helped, but not by a magic jump—more like a solid nudge. The weighted sum approach gave the model some flexibility to decide what mattered more per feature dimension: this resulted in an overall higher **precision**. The effect of the two model flavors was more pronounced with smaller sample sizes.  
 
-## Final Thoughts
+#### Final Thoughts
 
 This project was less about reinventing the wheel and more about creatively exploiting what a powerful pretrained model like CLIP can offer for medical image classification.
 
