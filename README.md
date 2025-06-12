@@ -64,7 +64,7 @@ The baseline was simple but necessary: it took the image features extracted by C
 
 This model acted as a sanity check: can CLIP’s raw image features alone classify these conditions well? Also, it set a performance floor to improve upon.
 
-**Example Prediction:**
+**Example Prediction:** Real Label : "Atelectasis | Consolidation"
 ![Baseline MLP Prediction](prediction_viz_baseline_mlp.png)
 
 ---
@@ -97,7 +97,7 @@ Concatenating image and text embeddings allowed the model to learn joint pattern
 - The model had separate parameter sets for image and prompt branches, enabling specialized transformations.
 - The final classifier was a simple MLP that took the concatenated features and output pathology probabilities.
 
-**Example Prediction:**
+**Example Prediction:** Real Label : "Atelectasis | Consolidation"
 ![Two-Branch MLP Prediction](prediction_viz_two_branch_mlp.png)
 ---
 
@@ -130,7 +130,7 @@ This approach tried to be smarter about combining image and text features by int
 - This setup still used the same prompt mega-vector ensemble as before.
 - The prompt projection aligned textual features into the same space as image features for meaningful element-wise combination.
 
-**Example Prediction:**
+**Example Prediction:** Real Label : "Atelectasis | Consolidation"
 ![Weighted Sum MLP Prediction](prediction_viz_weighted_sum_mlp.png)
 
 ---
