@@ -64,6 +64,9 @@ The baseline was simple but necessary: it took the image features extracted by C
 
 This model acted as a sanity check: can CLIP’s raw image features alone classify these conditions well? Also, it set a performance floor to improve upon.
 
+**Example Prediction:**
+![Baseline MLP Prediction](prediction_viz_baseline_mlp.png)
+
 ---
 
 ##### 2. Two-Branch MLP with Concatenation Fusion
@@ -88,11 +91,14 @@ Here’s where things got interesting. Instead of relying solely on image featur
 
 Concatenating image and text embeddings allowed the model to learn joint patterns. For example, it could learn that certain textual cues emphasize some image features, helping it disambiguate challenging cases.
 
-**Technical notes:**
+**Additional remarks:**
 
 - The prompt mega-vector was fixed during training (not learned) and acted as a strong prior.
 - The model had separate parameter sets for image and prompt branches, enabling specialized transformations.
 - The final classifier was a simple MLP that took the concatenated features and output pathology probabilities.
+
+**Example Prediction:**
+![Two-Branch MLP Prediction](prediction_viz_two_branch_mlp.png)
 ---
 
 ##### 3. Weighted Sum MLP
@@ -124,6 +130,9 @@ This approach tried to be smarter about combining image and text features by int
 - This setup still used the same prompt mega-vector ensemble as before.
 - The prompt projection aligned textual features into the same space as image features for meaningful element-wise combination.
 
+**Example Prediction:**
+![Weighted Sum MLP Prediction](prediction_viz_weighted_sum_mlp.png)
+
 ---
 
 #### How I Made the Prompts (Prompt Engineering)
@@ -145,6 +154,7 @@ These got fed to CLIP’s text encoder and averaged to form a single prompt embe
 
 The results showed that combining image and text embeddings helped, but not by a magic jump,more like a solid nudge. The weighted sum approach gave the model some flexibility to decide what mattered more per feature dimension: this resulted in an overall higher **precision**. The effect of the two model flavors was more pronounced with smaller sample sizes.  
 
+![Comparison of Model Performance](overall_metrics_comparison_all_three.png)
 #### Final Thoughts
 
 This project was less about reinventing the wheel and more about creatively exploiting what a powerful pretrained model like CLIP can offer for medical image classification.
