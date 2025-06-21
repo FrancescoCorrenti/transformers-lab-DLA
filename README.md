@@ -4,6 +4,11 @@
 
 Welcome! This README walks through Laboratory #3 for Deep Learning Applications, where I explored the transformer architecture and the Hugging Face ecosystem. 
 
+**Requirements:**
+The lab should work with the instuctor's provided environment, i just added `cprint` for colored printing. 
+```bash
+pip install cprint
+```
 ## Exercise 1.1:
 
 I loaded and explored the Cornell Rotten Tomatoes movie review dataset, focusing on understanding its splits (train, validation, test). Using HuggingFace's datasets library, I confirmed the balanced nature of the dataset, which contains equal positive and negative reviews.
@@ -16,7 +21,7 @@ I loaded the lightweight Distilbert model and corresponding tokenizer, examining
 
 ## Exercise 1.3: 
 I extracted features from Distilbert's [CLS] token, effectively turning the model into a feature extractor. These features were then used to train an SVM classifier. Using GridSearchCV, I found optimal hyperparameters (C, kernel, gamma) that yielded a solid baseline accuracy on validation data. 
-
+The SVM model was evaluated on a leftout set, achieving an accuracy of 82.0%.
 
 ## Exercise 2.1:
 The dataset was tokenized efficiently using the map method from HuggingFace's Dataset class. Tokenization provided input IDs and attention masks, preparing the dataset effectively for training.
@@ -28,6 +33,10 @@ I initialized Distilbert specifically for sequence classification by attaching a
 
 ## Exercise 2.3: 
 Using HuggingFace's Trainer, I fine-tuned the Distilbert model. A DataCollatorWithPadding ensured efficient batch handling. The training setup included early stopping and careful hyperparameter selection (epochs, batch size, learning rate) managed via TrainingArguments. Metrics computed included accuracy, precision, recall, and F1 score, logged through WandB. 
+<p align="center">
+    <img src="images/wandb_eval_bert.png" width="600" alt="BERT Evaluation">
+</p>
+The SVM model was evaluated on a leftout set, achieving an accuracy of 86.4% : an improvement over the previous SVM baseline. 
 
 
 ## Exercise 3.3:
@@ -65,7 +74,7 @@ The baseline was simple but necessary: it took the image features extracted by C
 This model acted as a sanity check: can CLIP’s raw image features alone classify these conditions well? Also, it set a performance floor to improve upon.
 
 **Example Prediction:** Real Label : "Atelectasis | Consolidation"
-![Baseline MLP Prediction](prediction_viz_baseline_mlp.png)
+![Baseline MLP Prediction](images/prediction_viz_baseline_mlp.png)
 
 ---
 
@@ -98,7 +107,7 @@ Concatenating image and text embeddings allowed the model to learn joint pattern
 - The final classifier was a simple MLP that took the concatenated features and output pathology probabilities.
 
 **Example Prediction:** Real Label : "Atelectasis | Consolidation"
-![Two-Branch MLP Prediction](prediction_viz_two_branch_mlp.png)
+![Two-Branch MLP Prediction](images/prediction_viz_two_branch_mlp.png)
 
 ---
 
@@ -132,7 +141,7 @@ This approach tried to be smarter about combining image and text features by int
 - The prompt projection aligned textual features into the same space as image features for meaningful element-wise combination.
 
 **Example Prediction:** Real Label : "Atelectasis | Consolidation"
-![Weighted Sum MLP Prediction](prediction_viz_weighted_sum_mlp.png)
+![Weighted Sum MLP Prediction](images/prediction_viz_weighted_sum_mlp.png)
 
 ---
 
@@ -155,7 +164,7 @@ These got fed to CLIP’s text encoder and averaged to form a single prompt embe
 
 The results showed that combining image and text embeddings helped, but not by a magic jump,more like a solid nudge. The weighted sum approach gave the model some flexibility to decide what mattered more per feature dimension: this resulted in an overall higher **precision**. The effect of the two model flavors was more pronounced with smaller sample sizes.  
 
-![Comparison of Model Performance](overall_metrics_comparison_all_three.png)
+![Comparison of Model Performance](images/overall_metrics_comparison_all_three.png)
 #### Final Thoughts
 
 This project was less about reinventing the wheel and more about creatively exploiting what a powerful pretrained model like CLIP can offer for medical image classification.
